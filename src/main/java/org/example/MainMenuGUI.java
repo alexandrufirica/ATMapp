@@ -208,7 +208,15 @@ public class MainMenuGUI extends AuthentificationService implements ActionListen
         } else if (e.getSource() == depositButton) {
             frame.dispose();
             new DepositGUI();
-
+        } else if (e.getSource() == transferButton) {
+            frame.dispose();
+            new TransferGUI();
+        } else if (e.getSource() == changePinButton) {
+            frame.dispose();
+            new ChangePinGUI();
+        } else if (e.getSource() == optionsButton) {
+            frame.dispose();
+            new OptionGUI();
         }
 
     }

@@ -14,8 +14,9 @@ public class WithdrawalGUI extends AuthentificationService implements ActionList
     JButton withdrawalButton;
     JTextField amountField;
     JLabel messageLabel;
-    int remainAmount;
+
     int amount;
+
     ResultSet resultSet;
 
     public WithdrawalGUI(){
@@ -24,7 +25,6 @@ public class WithdrawalGUI extends AuthentificationService implements ActionList
 
             pst = con.prepareStatement("select * from atmusers where username = ?");
             pst.setString(1,uname);
-
 
             resultSet = pst.executeQuery();
             if(resultSet.next()){
@@ -86,8 +86,6 @@ public class WithdrawalGUI extends AuthentificationService implements ActionList
 
         amountLabel.setText("Enter withdrawal amount : ");
         amountLabel.setSize(100,100);
-       // amountLabel.setHorizontalAlignment(JLabel.CENTER);
-       // amountLabel.setVerticalAlignment(JLabel.CENTER);
         amountLabel.setForeground(Color.YELLOW);
         amountLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 
@@ -156,24 +154,22 @@ public class WithdrawalGUI extends AuthentificationService implements ActionList
 
 //This method modify ballance after withdrawal
 
-    public int ballanceUpdate(String uname, int ballance){
+    public void ballanceUpdate(String uname, int ballance){
         String SQL = "UPDATE atmusers "
                 + "SET ballance = ? "
                 + "WHERE username = ?";
-
-        int affectedrows = 0;
 
         try (PreparedStatement pstmt = con.prepareStatement(SQL))  {
 
             pstmt.setInt(1,ballance);
             pstmt.setString(2,uname);
 
-            affectedrows = pstmt.executeUpdate();
+            pstmt.executeUpdate();
 
         }catch ( SQLException ex){
             System.out.println(ex.getMessage());
         }
-        return  affectedrows;
+
     }
 
     @Override
@@ -190,8 +186,8 @@ public class WithdrawalGUI extends AuthentificationService implements ActionList
                     messageLabel.setText("Insufficient funds, check your ballance!");
                     messageLabel.setVisible(true);
                 }else {
-                    remainAmount = ballance - amount;
-                    ballanceUpdate(uname, remainAmount);
+                    ballance = ballance - amount;
+                    ballanceUpdate(uname, ballance);
                     messageLabel.setText("You withdrawal " + amount + currency);
                     messageLabel.setVisible(true);
                 }

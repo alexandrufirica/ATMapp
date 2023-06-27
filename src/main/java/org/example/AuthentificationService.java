@@ -12,9 +12,10 @@ public class AuthentificationService {
 
 
     public static String uname;
-    String pass;
+    public static String pass;
     public static int ballance;
     public static String currency;
+    public static String withdrawalLimit;
 
 
     public void Connect(){

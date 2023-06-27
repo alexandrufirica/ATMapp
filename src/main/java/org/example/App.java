@@ -8,7 +8,7 @@ public class App
 {
     public static void main( String[] args )
     {
-      //BallanceGUI menu = new BallanceGUI();
+      //ChangePinGUI transfer = new ChangePinGUI();
         AuthentificationGUI menu = new AuthentificationGUI();
 
 

@@ -4,9 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 
-public class AuthentificationGUI extends AuthentificationService implements ActionListener {
+public class AuthentificationGUI extends AuthentificationService implements ActionListener, KeyListener {
 
     JFrame frame;
     JTextField userNameField;
@@ -40,6 +42,7 @@ public class AuthentificationGUI extends AuthentificationService implements Acti
          frame.setResizable(false);
          frame.setLayout(new BorderLayout());
          frame.setTitle("ATMapp");
+         frame.addKeyListener(this);
 
          panel.setLayout(new FlowLayout(FlowLayout.CENTER));
          panel.setBackground(Color.BLUE);
@@ -50,6 +53,7 @@ public class AuthentificationGUI extends AuthentificationService implements Acti
          userNameField.setForeground(Color.YELLOW);
          userNameField.setCaretColor(Color.YELLOW);
          userNameField.setVisible(true);
+         userNameField.addKeyListener(this);
 
 
          passwordField.setPreferredSize(new Dimension(150,30));
@@ -58,6 +62,7 @@ public class AuthentificationGUI extends AuthentificationService implements Acti
          passwordField.setForeground(Color.YELLOW);
          passwordField.setCaretColor(Color.YELLOW);
          passwordField.setVisible(true);
+         passwordField.addKeyListener(this);
 
          labelUsername.setText("UserName: ");
          labelUsername.setHorizontalAlignment(JLabel.CENTER);
@@ -89,6 +94,7 @@ public class AuthentificationGUI extends AuthentificationService implements Acti
          submitButton.setBorderPainted(false);
          submitButton.addActionListener(this);
 
+
          panel.add(labelUsername);
          panel.add(userNameField);
          panel.add(labelPassword);
@@ -116,7 +122,6 @@ public class AuthentificationGUI extends AuthentificationService implements Acti
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
 
          if(e.getSource() == submitButton){
              try {
@@ -146,4 +151,40 @@ public class AuthentificationGUI extends AuthentificationService implements Acti
     }
 
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == 10){
+            try {
+                Connect();
+                uname = userNameField.getText();
+                pass = passwordField.getText();
+
+                pst = con.prepareStatement("select * from atmusers where username = ? and password = ?");
+                pst.setString(1,uname);
+                pst.setString(2,pass);
+
+                ResultSet resultSet;
+                resultSet = pst.executeQuery();
+                if(resultSet.next()){
+                    frame.dispose();
+                    new MainMenuGUI();
+                }else{
+                    wrongLabel.setVisible(true);
+                }
+
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }

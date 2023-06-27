@@ -16,7 +16,6 @@ import java.sql.SQLException;
         JButton depositButton;
         JTextField amountField;
         JLabel messageLabel;
-        int remainAmount;
         int amount;
 
         ResultSet resultSet;
@@ -27,7 +26,6 @@ import java.sql.SQLException;
 
                 pst = con.prepareStatement("select * from atmusers where username = ?");
                 pst.setString(1,uname);
-
 
                 resultSet = pst.executeQuery();
                 if(resultSet.next()){
@@ -155,24 +153,21 @@ import java.sql.SQLException;
 
 //This method modify ballance after withdrawal 
 
-        public int ballanceUpdate(String uname, int ballance){
+        public void ballanceUpdate(String uname, int ballance){
             String SQL = "UPDATE atmusers "
                     + "SET ballance = ? "
                     + "WHERE username = ?";
-
-            int affectedrows = 0;
 
             try (PreparedStatement pstmt = con.prepareStatement(SQL))  {
 
                 pstmt.setInt(1,ballance);
                 pstmt.setString(2,uname);
 
-                affectedrows = pstmt.executeUpdate();
+                pstmt.executeUpdate();
 
             }catch ( SQLException ex){
                 System.out.println(ex.getMessage());
             }
-            return  affectedrows;
         }
 
         @Override
@@ -184,8 +179,8 @@ import java.sql.SQLException;
             }else if (e.getSource() == depositButton){
                 try {
                     amount = Integer.parseInt(amountField.getText());
-                    remainAmount = ballance + amount;
-                    ballanceUpdate(uname,remainAmount);
+                    ballance = ballance + amount;
+                    ballanceUpdate(uname,ballance);
                     messageLabel.setText("You deposit " + amount + currency );
                     messageLabel.setVisible(true);
 
