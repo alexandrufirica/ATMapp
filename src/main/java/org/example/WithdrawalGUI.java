@@ -185,11 +185,16 @@ public class WithdrawalGUI extends AuthentificationService implements ActionList
         }
         else if (e.getSource() == withdrawalButton){
             try {
-                 amount = Integer.parseInt(amountField.getText());
-                remainAmount = ballance - amount;
-                ballanceUpdate(uname,remainAmount);
-                messageLabel.setText("You withdrawal " + amount + currency );
-                messageLabel.setVisible(true);
+                amount = Integer.parseInt(amountField.getText());
+                if(ballance-amount < 0){
+                    messageLabel.setText("Insufficient funds, check your ballance!");
+                    messageLabel.setVisible(true);
+                }else {
+                    remainAmount = ballance - amount;
+                    ballanceUpdate(uname, remainAmount);
+                    messageLabel.setText("You withdrawal " + amount + currency);
+                    messageLabel.setVisible(true);
+                }
 
             }catch (Exception ex){
                 messageLabel.setText("Something wrong! Try again!");
