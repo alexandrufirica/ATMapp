@@ -7,19 +7,25 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class OptionGUI extends AuthentificationService implements ActionListener {
+ public class OptionGUI extends AuthentificationService implements ActionListener {
     JFrame frame;
     JPanel panelCenter;
     JLabel WithdrawalLimitLabel;
-    JTextField WithdrawalLimitField;
     JButton backButton;
     JButton saveButton;
     JLabel messageLabel;
     JComboBox withdrawalLimitComboBox;
 
-    String withdrawalLimit;
+    int withdrawalLimitSelected;
 
     public OptionGUI(){
+        try {
+            Connect();
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000,1000);
@@ -59,15 +65,7 @@ public class OptionGUI extends AuthentificationService implements ActionListener
         WithdrawalLimitLabel.setForeground(Color.YELLOW);
         WithdrawalLimitLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 
-//        WithdrawalLimitField = new JTextField();
-//        WithdrawalLimitField.setPreferredSize(new Dimension(200,40));
-//        WithdrawalLimitField.setOpaque(false);
-//        WithdrawalLimitField.setFont(new Font("Arial", Font.PLAIN,25));
-//        WithdrawalLimitField.setForeground(Color.YELLOW);
-//        WithdrawalLimitField.setCaretColor(Color.YELLOW);
-//        WithdrawalLimitField.setVisible(true);
-
-        String []  withdrawalLimits = {"1000","2000","3000","4000","5000"};
+        Integer []  withdrawalLimits = {1000,2000,3000,4000,5000};
 
         withdrawalLimitComboBox = new JComboBox(withdrawalLimits);
         withdrawalLimitComboBox.addActionListener(this);
@@ -159,14 +157,14 @@ public class OptionGUI extends AuthentificationService implements ActionListener
 
     }
 
-    public void WithdrawalLimitUpdata(String uname, String withdrawalLimit){
+    public void withdrawalLimitUpdate(String uname, int withdrawalLimit){
         String SQL = "UPDATE atmusers "
-                + "SET withdrawalLimit = ? "
+                + "SET withdrawal_limit = ? "
                 + "WHERE username = ?";
 
         try (PreparedStatement pstmt = con.prepareStatement(SQL))  {
 
-            pstmt.setString(1,withdrawalLimit);
+            pstmt.setInt(1,withdrawalLimit);
             pstmt.setString(2,uname);
 
             pstmt.executeUpdate();
@@ -183,8 +181,8 @@ public class OptionGUI extends AuthentificationService implements ActionListener
             frame.dispose();
             new MainMenuGUI();
         } else if (e.getSource() == saveButton) {
-            withdrawalLimit = (String) withdrawalLimitComboBox.getSelectedItem();
-            System.out.println(withdrawalLimit);
+            withdrawalLimitSelected = (int) withdrawalLimitComboBox.getSelectedItem();
+            withdrawalLimitUpdate(uname,withdrawalLimitSelected);
             messageLabel.setText("Changes saved!");
             messageLabel.setVisible(true);
         }

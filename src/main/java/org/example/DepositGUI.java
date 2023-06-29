@@ -7,8 +7,9 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
-    public class DepositGUI extends AuthentificationService implements ActionListener {
+public class DepositGUI extends RecentTransactionService implements ActionListener {
         JFrame frame;
         JPanel panel;
         JLabel amountLabel;
@@ -181,6 +182,7 @@ import java.sql.SQLException;
                     amount = Integer.parseInt(amountField.getText());
                     ballance = ballance + amount;
                     ballanceUpdate(uname,ballance);
+                    recentTransaction(LocalDateTime.now().toString(),uname,"withdrawal");
                     messageLabel.setText("You deposit " + amount + currency );
                     messageLabel.setVisible(true);
 

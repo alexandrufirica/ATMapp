@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Record account transaction log</comment>
+<entry key="date">2023-06-28T15:53:23.598376500</entry>
+<entry key="transaction">withdrawal</entry>
+<entry key="username">Alex</entry>
+</properties>
+username Alextransaction withdrawal

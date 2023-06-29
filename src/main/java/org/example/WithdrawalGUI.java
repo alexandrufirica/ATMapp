@@ -5,8 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.time.LocalDateTime;
 
-public class WithdrawalGUI extends AuthentificationService implements ActionListener {
+public class WithdrawalGUI extends RecentTransactionService implements ActionListener {
     JFrame frame;
     JPanel panel;
     JLabel amountLabel;
@@ -30,6 +31,7 @@ public class WithdrawalGUI extends AuthentificationService implements ActionList
             if(resultSet.next()){
                 ballance = resultSet.getInt(4);
                 currency = resultSet.getString(5);
+                withdrawalLimit = resultSet.getInt(6);
             }
 
         }catch (Exception ex){
@@ -185,9 +187,13 @@ public class WithdrawalGUI extends AuthentificationService implements ActionList
                 if(ballance-amount < 0){
                     messageLabel.setText("Insufficient funds, check your ballance!");
                     messageLabel.setVisible(true);
-                }else {
+                } else if (amount > withdrawalLimit) {
+                    messageLabel.setText("You can not withdrawal more than "+ withdrawalLimit +" "+ currency + " once ! Go to options menu to change withdrawal limit.");
+                    messageLabel.setVisible(true);
+                } else {
                     ballance = ballance - amount;
                     ballanceUpdate(uname, ballance);
+                    recentTransaction(LocalDateTime.now().toString(),uname,"withdrawal");
                     messageLabel.setText("You withdrawal " + amount + currency);
                     messageLabel.setVisible(true);
                 }
@@ -195,6 +201,7 @@ public class WithdrawalGUI extends AuthentificationService implements ActionList
             }catch (Exception ex){
                 messageLabel.setText("Something wrong! Try again!");
                 messageLabel.setVisible(true);
+                System.out.println(ex.getMessage());
             }
         }
 

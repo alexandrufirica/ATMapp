@@ -1,7 +1,7 @@
 package org.example;
 
 /**
- * Hello world!
+ * This app is a graphic interface of an ATM screen conected with a PostgeSQL DataBase
  *
  */
 public class App 
