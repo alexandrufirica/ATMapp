@@ -193,7 +193,7 @@ public class WithdrawalGUI extends RecentTransactionService implements ActionLis
                 } else {
                     ballance = ballance - amount;
                     ballanceUpdate(uname, ballance);
-                    recentTransaction(LocalDateTime.now().toString(),uname,"withdrawal");
+                    recentTransaction(amount,"withdrawal");
                     messageLabel.setText("You withdrawal " + amount + currency);
                     messageLabel.setVisible(true);
                 }

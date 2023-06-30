@@ -1,6 +1,8 @@
 package org.example;
 
 import java.io.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Properties;
 import java.util.*;
@@ -8,43 +10,25 @@ import com.opencsv.CSVWriter;
 
 public class RecentTransactionService extends AuthentificationService {
 
+    public void recentTransaction(int amount,String transatctionName)  {
+        Connect();
 
+        String SQL = "INSERT INTO transactionlog"
+                + "(date, username, transactiontype, amount, currency)"
+                + "VALUES (?, ?, ?, ?, ?)";
 
-    public static void recentTransaction(String data, String username,String transatctionName) throws FileNotFoundException, IOException {
+        try (PreparedStatement pstmt = con.prepareStatement(SQL))  {
 
-        List<String[]> csvData = createCsvDataSpecial(LocalDateTime.now().toString(),uname,transatctionName);
+            pstmt.setString(1,LocalDateTime.now().toString());
+            pstmt.setString(2,uname);
+            pstmt.setString(3,transatctionName);
+            pstmt.setInt(4,amount);
+            pstmt.setString(5,currency);
 
-        // default all fields are enclosed in double quotes
-        // default separator is a comma
-        try (
-                CSVWriter writer = new CSVWriter(new FileWriter("transactionlog.csv"))) {
-            writer.writeAll(csvData);
+            pstmt.executeUpdate();
 
+        }catch ( SQLException ex){
+            System.out.println(ex.getMessage());
         }
-
     }
-
-
-
-        public static List<String[]> list = new ArrayList<>();
-    private static List<String[]> createCsvDataSpecial(String data, String username, String transactionType) {
-
-        String[] header = {"Date", "Username", "Transaction"};
-
-        String[] record1 = {data, username, transactionType};
-
-
-        if(list.contains(header)){
-            list.add(record1);
-        }else {
-            list.add(header);
-            list.add(record1);
-        }
-
-        return list;
-
-    }
-
-
-
 }

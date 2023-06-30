@@ -182,7 +182,7 @@ public class DepositGUI extends RecentTransactionService implements ActionListen
                     amount = Integer.parseInt(amountField.getText());
                     ballance = ballance + amount;
                     ballanceUpdate(uname,ballance);
-                    recentTransaction(LocalDateTime.now().toString(),uname,"deposit");
+                    recentTransaction(amount,"deposit");
                     messageLabel.setText("You deposit " + amount + currency );
                     messageLabel.setVisible(true);
 
