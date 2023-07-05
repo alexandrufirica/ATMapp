@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenuGUI extends AuthentificationService implements ActionListener {
+public class MainMenuGUI extends AppService implements ActionListener {
 
     JFrame frame = new JFrame();
     JButton ballanceButton;
@@ -217,6 +217,9 @@ public class MainMenuGUI extends AuthentificationService implements ActionListen
         } else if (e.getSource() == optionsButton) {
             frame.dispose();
             new OptionGUI();
+        } else if (e.getSource() == recentTransactionButton) {
+            frame.dispose();
+            new RecentTransactionGUI();
         }
 
     }

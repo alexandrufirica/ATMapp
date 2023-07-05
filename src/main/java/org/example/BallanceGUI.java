@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
-public class BallanceGUI extends AuthentificationService implements ActionListener {
+public class BallanceGUI extends AppService implements ActionListener {
     JFrame frame;
     JPanel panel;
     JLabel ballanceLabel;

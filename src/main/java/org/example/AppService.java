@@ -1,8 +1,10 @@
 package org.example;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class AuthentificationService {
+public class AppService {
 
     public Connection con;
     public PreparedStatement pst;
@@ -23,12 +25,35 @@ public class AuthentificationService {
             e.printStackTrace();
         }
     }
+
+    public void recentTransaction(int amount,String transatctionName)  {
+        Connect();
+
+        String SQL = "INSERT INTO transactionlog"
+                + "(date, username, transactiontype, amount, currency)"
+                + "VALUES (?, ?, ?, ?, ?)";
+
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd MM yyyy hh:mm:ss");
+        try (PreparedStatement pstmt = con.prepareStatement(SQL))  {
+
+            pstmt.setString(1, LocalDateTime.now().format(f).toString());
+            pstmt.setString(2,uname);
+            pstmt.setString(3,transatctionName);
+            pstmt.setInt(4,amount);
+            pstmt.setString(5,currency);
+
+            pstmt.executeUpdate();
+
+        }catch ( SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
     public static String getUname() {
         return uname;
     }
 
     public static void setUname(String uname) {
-        AuthentificationService.uname = uname;
+        AppService.uname = uname;
     }
 
     public static String getPass() {
@@ -36,7 +61,7 @@ public class AuthentificationService {
     }
 
     public static void setPass(String pass) {
-        AuthentificationService.pass = pass;
+        AppService.pass = pass;
     }
 
     public static int getBallance() {
@@ -44,7 +69,7 @@ public class AuthentificationService {
     }
 
     public static void setBallance(int ballance) {
-        AuthentificationService.ballance = ballance;
+        AppService.ballance = ballance;
     }
 
     public static String getCurrency() {
@@ -52,7 +77,7 @@ public class AuthentificationService {
     }
 
     public static void setCurrency(String currency) {
-        AuthentificationService.currency = currency;
+        AppService.currency = currency;
     }
 
     public static int getWithdrawalLimit() {
@@ -60,7 +85,7 @@ public class AuthentificationService {
     }
 
     public static void setWithdrawalLimit(int withdrawalLimit) {
-        AuthentificationService.withdrawalLimit = withdrawalLimit;
+        AppService.withdrawalLimit = withdrawalLimit;
     }
 
 }

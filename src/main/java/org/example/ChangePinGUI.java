@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ChangePinGUI extends AuthentificationService implements ActionListener {
+public class ChangePinGUI extends AppService implements ActionListener {
     JFrame frame;
     JPanel panelCenter;
     JLabel currentPinLabel;

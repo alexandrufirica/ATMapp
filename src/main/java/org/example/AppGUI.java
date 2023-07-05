@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 
-public class AuthentificationGUI extends AuthentificationService implements ActionListener, KeyListener {
+public class AppGUI extends AppService implements ActionListener, KeyListener {
 
     JFrame frame;
     JTextField userNameField;
@@ -23,7 +23,7 @@ public class AuthentificationGUI extends AuthentificationService implements Acti
     JPanel panelRight;
     JPanel panelLeft;
 
-     AuthentificationGUI(){
+     AppGUI(){
 
          panel = new JPanel();
          frame = new JFrame();

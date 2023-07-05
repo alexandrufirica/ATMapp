@@ -5,9 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.time.LocalDateTime;
 
-public class WithdrawalGUI extends RecentTransactionService implements ActionListener {
+public class WithdrawalGUI extends AppService implements ActionListener {
     JFrame frame;
     JPanel panel;
     JLabel amountLabel;
@@ -193,7 +192,7 @@ public class WithdrawalGUI extends RecentTransactionService implements ActionLis
                 } else {
                     ballance = ballance - amount;
                     ballanceUpdate(uname, ballance);
-                    recentTransaction(amount,"withdrawal");
+                    recentTransaction(amount,"Withdrawal");
                     messageLabel.setText("You withdrawal " + amount + currency);
                     messageLabel.setVisible(true);
                 }

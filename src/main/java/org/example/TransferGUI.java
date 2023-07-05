@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TransferGUI extends AuthentificationService implements ActionListener {
+public class TransferGUI extends AppService implements ActionListener {
     JFrame frame;
     JPanel panelCenter;
     JLabel amountLabel;
@@ -238,6 +238,7 @@ public class TransferGUI extends AuthentificationService implements ActionListen
                 targetBallance = targetBallance + amount;
                 ballanceUpdate(uname,ballance);
                 ballanceUpdate(targetUname,targetBallance);
+                recentTransaction(amount,"Transfer");
                 messageLabel.setText("You transfered " + amount + currency );
                 messageLabel.setVisible(true);
 

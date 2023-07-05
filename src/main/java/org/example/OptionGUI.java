@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
- public class OptionGUI extends AuthentificationService implements ActionListener {
+ public class OptionGUI extends AppService implements ActionListener {
     JFrame frame;
     JPanel panelCenter;
     JLabel WithdrawalLimitLabel;
@@ -141,7 +141,7 @@ import java.sql.SQLException;
 
         panelCenterCenter.add(WithdrawalLimitLabel,BorderLayout.CENTER);
         panelCenterCenter.add(withdrawalLimitComboBox,BorderLayout.CENTER);
-//        panelCenterCenter.add(WithdrawalLimitField,BorderLayout.CENTER);
+
 
         panelCenter.add(panelCenterUp,BorderLayout.NORTH);
         panelCenter.add(panelCenterDown,BorderLayout.SOUTH);
