@@ -19,6 +19,14 @@ public class MainMenuGUI extends AppService implements ActionListener {
 
     public  MainMenuGUI(){
 
+        //this gives currency ratios using currency app
+        try {
+            Currency currencyApp = new Currency();
+
+        }catch (Exception e ){
+            System.out.println("Something wrong! Try again!" + e.getMessage());
+        }
+
         JPanel panelLeft = new JPanel();
         panelLeft.setLayout(new GridLayout(5,1));
 
