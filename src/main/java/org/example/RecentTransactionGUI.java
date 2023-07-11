@@ -84,14 +84,6 @@ public class RecentTransactionGUI extends AppService implements ActionListener {
         upperText.setOpaque(false);
         upperText.setVisible(true);
 
-
-        JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL,30,40,0,500);
-        scrollBar.setEnabled(true);
-        scrollBar.setVisible(true);
-
-        JScrollPane scrollPane = new JScrollPane(transactionLogsTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-
         transactionLogsTextArea = new JTextArea();
         transactionLogsTextArea.setText(String.valueOf(logsList).replace("[","").replace("]","").replace(",", ""));
         transactionLogsTextArea.setForeground(Color.YELLOW);
@@ -99,6 +91,10 @@ public class RecentTransactionGUI extends AppService implements ActionListener {
         transactionLogsTextArea.setEditable(false);
         transactionLogsTextArea.setFont(new Font("Arial", Font.PLAIN, 30));
 
+        JScrollPane scrollPane = new JScrollPane(transactionLogsTextArea);
+        scrollPane.setBackground(Color.BLUE);
+        scrollPane.setForeground(Color.BLUE);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
         backButton = new JButton();
         backButton.setText("Back");
@@ -113,7 +109,7 @@ public class RecentTransactionGUI extends AppService implements ActionListener {
         backButton.addActionListener(this);
 
         panelLeft.setPreferredSize(new Dimension(180,300));
-        panelRight.setPreferredSize(new Dimension(150,300));
+        panelRight.setPreferredSize(new Dimension(10,300));
         panelUp.setPreferredSize(new Dimension(100,100));
         panelDown.setPreferredSize(new Dimension(100,100));
 
@@ -126,23 +122,7 @@ public class RecentTransactionGUI extends AppService implements ActionListener {
 
         panelLeft.add(backButton);
 
-        JPanel panelCenterUp = new JPanel();
-        JPanel panelCenterDown = new JPanel();
-        JPanel panelCenterCenter = new JPanel();
-
-
-        panelCenterUp.setPreferredSize(new Dimension(100,50));
-        panelCenterDown.setPreferredSize(new Dimension(100,50));
-
-        panelCenterUp.setBackground(Color.BLUE);
-        panelCenterDown.setBackground(Color.BLUE);
-        panelCenterCenter.setBackground(Color.BLUE);
-
-        panelCenterCenter.add(transactionLogsTextArea,BorderLayout.CENTER);
-
-        panelCenter.add(panelCenterUp,BorderLayout.NORTH);
-        panelCenter.add(panelCenterDown,BorderLayout.SOUTH);
-        panelCenter.add(panelCenterCenter,BorderLayout.CENTER);
+        panelCenter.add(scrollPane,BorderLayout.CENTER);
 
         frame.add(panelCenter,BorderLayout.CENTER);
         frame.add(panelLeft, BorderLayout.WEST);
