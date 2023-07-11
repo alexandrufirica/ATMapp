@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 
-public class AppGUI extends AppService implements ActionListener, KeyListener {
+public class AuthentificatinGUI extends AppService implements ActionListener, KeyListener {
 
     JFrame frame;
     JTextField userNameField;
@@ -23,7 +23,7 @@ public class AppGUI extends AppService implements ActionListener, KeyListener {
     JPanel panelRight;
     JPanel panelLeft;
 
-     AppGUI(){
+     AuthentificatinGUI(){
 
          panel = new JPanel();
          frame = new JFrame();
@@ -125,7 +125,7 @@ public class AppGUI extends AppService implements ActionListener, KeyListener {
 
          if(e.getSource() == submitButton){
              try {
-                 Connect();
+                 ConnectATMDB();
                   uname = userNameField.getText();
                   pass = passwordField.getText();
 
@@ -160,7 +160,7 @@ public class AppGUI extends AppService implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == 10){
             try {
-                Connect();
+                ConnectATMDB();
                 uname = userNameField.getText();
                 pass = passwordField.getText();
 

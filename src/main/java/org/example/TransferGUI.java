@@ -28,7 +28,7 @@ public class TransferGUI extends AppService implements ActionListener {
     public TransferGUI(){
 
         try {
-            Connect();
+            ConnectATMDB();
             pst = con.prepareStatement("select * from atmusers where username = ?");
             pst.setString(1,uname);
 
@@ -217,7 +217,7 @@ public class TransferGUI extends AppService implements ActionListener {
             new MainMenuGUI();
         } else if (e.getSource() == transferButton) {
             try {
-                Connect();
+                ConnectATMDB();
                 targetUname = transferUserField.getText();
                 pst = con.prepareStatement("select * from atmusers where username = ?");
                 pst.setString(1,targetUname);

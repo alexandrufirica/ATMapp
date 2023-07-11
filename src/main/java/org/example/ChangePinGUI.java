@@ -24,7 +24,7 @@ public class ChangePinGUI extends AppService implements ActionListener {
     public ChangePinGUI (){
 
         try {
-            Connect();
+            ConnectATMDB();
             pst = con.prepareStatement("select * from atmusers where username = ?");
             pst.setString(1,uname);
 

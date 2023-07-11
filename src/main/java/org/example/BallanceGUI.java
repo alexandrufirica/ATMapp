@@ -17,7 +17,7 @@ public class BallanceGUI extends AppService implements ActionListener {
     public BallanceGUI(){
 
         try {
-            Connect();
+            ConnectATMDB();
 
             pst = con.prepareStatement("select * from atmusers where username = ?");
             pst.setString(1,uname);

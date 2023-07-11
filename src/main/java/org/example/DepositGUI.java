@@ -22,7 +22,7 @@ public class DepositGUI extends AppService implements ActionListener {
 
         public DepositGUI(){
             try {
-                Connect();
+                ConnectATMDB();
 
                 pst = con.prepareStatement("select * from atmusers where username = ?");
                 pst.setString(1,uname);

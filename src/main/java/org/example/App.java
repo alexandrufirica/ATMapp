@@ -9,8 +9,7 @@ public class App
 {
     public static void main( String[] args )
     {
-
-        AppGUI menu = new AppGUI();
+        AuthentificatinGUI menu = new AuthentificatinGUI();
 
 
     }

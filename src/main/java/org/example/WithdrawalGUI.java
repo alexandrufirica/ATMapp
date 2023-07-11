@@ -21,7 +21,7 @@ public class WithdrawalGUI extends AppService implements ActionListener {
 
     public WithdrawalGUI(){
         try {
-            Connect();
+            ConnectATMDB();
 
             pst = con.prepareStatement("select * from atmusers where username = ?");
             pst.setString(1,uname);

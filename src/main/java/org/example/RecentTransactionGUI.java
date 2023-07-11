@@ -27,7 +27,7 @@ public class RecentTransactionGUI extends AppService implements ActionListener {
         ResultSet resultSet;
 
         try {
-            Connect();
+            ConnectATMDB();
 
             pst = con.prepareStatement("select * from transactionlog where username = ?");
             pst.setString(1,uname);

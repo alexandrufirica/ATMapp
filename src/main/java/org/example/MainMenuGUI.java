@@ -11,7 +11,7 @@ public class MainMenuGUI extends AppService implements ActionListener {
     JButton ballanceButton;
     JButton transferButton;
     JButton withdrawalButton;
-    JButton paymentButton;
+    JButton currencyConverterButton;
     JButton depositButton;
     JButton changePinButton;
     JButton recentTransactionButton;
@@ -127,21 +127,21 @@ public class MainMenuGUI extends AppService implements ActionListener {
         withdrawalButton.setBorderPainted(false);
         withdrawalButton.addActionListener(this);
 
-        paymentButton= new JButton();
-        paymentButton.setText("Payment");
-        paymentButton.setFont(new Font("Arial", Font.PLAIN, 30));
-        paymentButton.setFocusable(false);
-        paymentButton.setIcon(rightArrow);
-        paymentButton.setHorizontalTextPosition(JButton.LEFT);
-        paymentButton.setVerticalTextPosition(JButton.CENTER);
-        paymentButton.setIconTextGap(10);
-        paymentButton.setForeground(Color.YELLOW);
-        paymentButton.setBackground(Color.BLUE);
-        paymentButton.setBorderPainted(false);
-        paymentButton.addActionListener(this);
+        currencyConverterButton = new JButton();
+        currencyConverterButton.setText("<html> Currency <br> Converter </html>");
+        currencyConverterButton.setFont(new Font("Arial", Font.PLAIN, 30));
+        currencyConverterButton.setFocusable(false);
+        currencyConverterButton.setIcon(rightArrow);
+        currencyConverterButton.setHorizontalTextPosition(JButton.LEFT);
+        currencyConverterButton.setVerticalTextPosition(JButton.CENTER);
+        currencyConverterButton.setIconTextGap(10);
+        currencyConverterButton.setForeground(Color.YELLOW);
+        currencyConverterButton.setBackground(Color.BLUE);
+        currencyConverterButton.setBorderPainted(false);
+        currencyConverterButton.addActionListener(this);
 
         recentTransactionButton= new JButton();
-        recentTransactionButton.setText("Recent Transaction");
+        recentTransactionButton.setText("<html> Recent <br> Transaction </html>");
         recentTransactionButton.setFont(new Font("Arial", Font.PLAIN, 30));
         recentTransactionButton.setFocusable(false);
         recentTransactionButton.setIcon(rightArrow);
@@ -184,7 +184,7 @@ public class MainMenuGUI extends AppService implements ActionListener {
         panelLeft.add(changePinButton);
 
         panelRight.add(withdrawalButton);
-        panelRight.add(paymentButton);
+        panelRight.add(currencyConverterButton);
         panelRight.add(recentTransactionButton);
         panelRight.add(optionsButton);
         
@@ -220,6 +220,10 @@ public class MainMenuGUI extends AppService implements ActionListener {
         } else if (e.getSource() == recentTransactionButton) {
             frame.dispose();
             new RecentTransactionGUI();
+        } else if (e.getSource() == currencyConverterButton) {
+            frame.dispose();
+            new CurrencyConverterGUI();
+
         }
 
     }

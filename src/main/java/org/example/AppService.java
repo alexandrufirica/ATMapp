@@ -15,7 +15,7 @@ public class AppService {
     public static String currency;
     public static int withdrawalLimit;
 
-    public void Connect() {
+    public void ConnectATMDB() {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -26,8 +26,18 @@ public class AppService {
         }
     }
 
+    public void ConnectCurrencyRates() {
+
+        try{
+            Class.forName("org.postgresql.Driver");
+            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/CurrencyRates", "postgres", "admin");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void recentTransaction(int amount,String transatctionName)  {
-        Connect();
+        ConnectATMDB();
 
         String SQL = "INSERT INTO transactionlog"
                 + "(date, username, transactiontype, amount, currency)"

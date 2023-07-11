@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
     public OptionGUI(){
         try {
-            Connect();
+            ConnectATMDB();
 
         }catch (Exception ex){
             ex.printStackTrace();
