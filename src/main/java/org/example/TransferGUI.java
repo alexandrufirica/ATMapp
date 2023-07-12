@@ -19,11 +19,11 @@ public class TransferGUI extends AppService implements ActionListener {
     JLabel transferUserLabel;
     JTextField transferUserField;
 
-    int amount;
+    double amount;
 
     ResultSet resultSet;
     String targetUname;
-    int targetBallance;
+    double targetBallance;
     String targetCurrency;
     public TransferGUI(){
 
@@ -34,7 +34,7 @@ public class TransferGUI extends AppService implements ActionListener {
 
             resultSet = pst.executeQuery();
             if(resultSet.next()){
-                ballance = resultSet.getInt(4);
+                ballance = resultSet.getDouble(4);
                 currency = resultSet.getString(5);
             }
 
@@ -192,25 +192,26 @@ public class TransferGUI extends AppService implements ActionListener {
     }
 
 
-    public void ballanceUpdate(String uname, int ballance){
+    public void ballanceUpdate(String uname, double ballance) {
+        ConnectATMDB();
         String SQL = "UPDATE atmusers "
                 + "SET ballance = ? "
                 + "WHERE username = ?";
 
-        try (PreparedStatement pstmt = con.prepareStatement(SQL))  {
+        try (PreparedStatement pstmt = con.prepareStatement(SQL)) {
 
-            pstmt.setInt(1,ballance);
-            pstmt.setString(2,uname);
+            pstmt.setDouble(1, ballance);
+            pstmt.setString(2, uname);
 
             pstmt.executeUpdate();
 
-        }catch ( SQLException ex){
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
     }
 
-    @Override
+
+        @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backButton){
             frame.dispose();
@@ -224,7 +225,7 @@ public class TransferGUI extends AppService implements ActionListener {
 
                 resultSet = pst.executeQuery();
                 if(resultSet.next()){
-                    targetBallance = resultSet.getInt(4);
+                    targetBallance = resultSet.getDouble(4);
                     targetCurrency = resultSet.getString(5);
                 }
 
@@ -233,11 +234,16 @@ public class TransferGUI extends AppService implements ActionListener {
             }
 
             try {
-                amount = Integer.parseInt(amountField.getText());
+                amount = Double.parseDouble(amountField.getText());
                 ballance = ballance - amount;
-                targetBallance = targetBallance + amount;
+                System.out.println(ballance);
+                getTodayRates();
+                targetBallance = targetBallance + updateRate(currency+targetCurrency, amount);
+                System.out.println(targetBallance);
+
                 ballanceUpdate(uname,ballance);
                 ballanceUpdate(targetUname,targetBallance);
+
                 recentTransaction(amount,"Transfer");
                 messageLabel.setText("You transfered " + amount + currency );
                 messageLabel.setVisible(true);

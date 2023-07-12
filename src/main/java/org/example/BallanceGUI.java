@@ -25,7 +25,7 @@ public class BallanceGUI extends AppService implements ActionListener {
             ResultSet resultSet;
             resultSet = pst.executeQuery();
             if(resultSet.next()){
-                ballance = resultSet.getInt(4);
+                ballance = resultSet.getDouble(4);
                 currency = resultSet.getString(5);
 
             }
@@ -114,8 +114,8 @@ public class BallanceGUI extends AppService implements ActionListener {
         depositButton.setBorderPainted(false);
         depositButton.addActionListener(this);
 
-        panelLeft.setPreferredSize(new Dimension(300,300));
-        panelRight.setPreferredSize(new Dimension(300,300));
+        panelLeft.setPreferredSize(new Dimension(270,300));
+        panelRight.setPreferredSize(new Dimension(270,300));
         panelUp.setPreferredSize(new Dimension(100,100));
         panelDown.setPreferredSize(new Dimension(100,100));
 

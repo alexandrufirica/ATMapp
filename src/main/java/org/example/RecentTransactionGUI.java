@@ -17,7 +17,7 @@ public class RecentTransactionGUI extends AppService implements ActionListener {
     String date;
     String username;
     String transactionType;
-    int transcationAmount;
+    double transcationAmount;
     String transactionCurrency;
 
     String log;
@@ -42,7 +42,7 @@ public class RecentTransactionGUI extends AppService implements ActionListener {
                 log =  GetLogs(resultSet.getString(1),
                                         resultSet.getString(2),
                                         resultSet.getString(3),
-                                        resultSet.getInt(4),
+                                        resultSet.getDouble(4),
                                         resultSet.getString(5));
 
                 logsList.add(log);
@@ -133,7 +133,7 @@ public class RecentTransactionGUI extends AppService implements ActionListener {
         frame.setVisible(true);
     }
 
-    public String GetLogs(String date, String username, String transactionType, int transcationAmount, String transactionCurrency){
+    public String GetLogs(String date, String username, String transactionType, double transcationAmount, String transactionCurrency){
 
         this.date = date;
         this.username = username;

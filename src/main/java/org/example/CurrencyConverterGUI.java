@@ -21,39 +21,10 @@ public class CurrencyConverterGUI extends  AppService implements ActionListener,
     JTextField toTextField;
     JLabel messageLabel;
 
-    double USDEUR;
-    double USDGBP;
-    double USDCAD;
-    double USDRON;
-
-    double fromAmount;
-    double toAmount;
 
     public CurrencyConverterGUI(){
 
-            ResultSet resultSet;
-
-            try {
-                ConnectCurrencyRates();
-
-                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MM yyyy");
-                String todayDate = LocalDateTime.now().format(dateFormat).toString();
-
-                pst = con.prepareStatement("select * from rates where date = ?");
-                pst.setString(1,todayDate);
-
-                resultSet = pst.executeQuery();
-
-                while(resultSet.next()){
-                    USDEUR = resultSet.getDouble(2);
-                    USDGBP = resultSet.getDouble(3);
-                    USDCAD = resultSet.getDouble(4);
-                    USDRON = resultSet.getDouble(5);
-                }
-
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
+            getTodayRates();
 
             frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,7 +104,7 @@ public class CurrencyConverterGUI extends  AppService implements ActionListener,
             toTextField.addKeyListener(this);
                 
 
-            String []  currencys = {"USD","GBP","EUR","CAD","RON"};
+            String []  currencys = {"USD","EUR","GBP","CAD","RON"};
     
             fromCurrencyComboBox = new JComboBox(currencys);
             fromCurrencyComboBox.addActionListener(this);
@@ -205,54 +176,6 @@ public class CurrencyConverterGUI extends  AppService implements ActionListener,
     }
 
 
-
-    public void update(){
-
-        double rate = 0;
-
-        switch (fromCurrencyComboBox.getSelectedItem().toString() + toCurrencyComboBox.getSelectedItem().toString()){
-
-            //USD rates
-            case "USDUSD" : rate = 1; break;
-            case "USDEUR" : rate = USDEUR; break;
-            case "USDGBP" : rate = USDGBP; break;
-            case "USDCAD" : rate = USDCAD; break;
-            case "USDRON" : rate = USDRON; break;
-
-            //EUR rates
-            case "EUREUR" : rate = 1; break;
-            case "EURUSD" : rate = 1/USDEUR; break;
-            case "EURGBP" : rate = 1/USDEUR * USDGBP; break;
-            case "EURCAD" : rate = 1/USDEUR * USDCAD; break;
-            case "EURRON" : rate = 1/USDEUR * USDRON; break;
-
-            //GBP rates
-            case "GBPGBP" : rate = 1; break;
-            case "GBPUSD" : rate = 1/USDGBP; break;
-            case "GBPEUR" : rate = 1/USDGBP * USDEUR; break;
-            case "GBPCAD" : rate = 1/USDGBP * USDCAD; break;
-            case "GBPRON" : rate = 1/USDGBP * USDRON; break;
-
-            //CAD rates
-            case "CADCAD" : rate = 1; break;
-            case "CADUSD" : rate = 1/USDCAD; break;
-            case "CADEUR" : rate = 1/USDCAD * USDEUR; break;
-            case "CADGBP" : rate = 1/USDCAD * USDGBP; break;
-            case "CADRON" : rate = 1/USDCAD * USDRON; break;
-
-            //RON rates
-            case "RONRON" : rate = 1; break;
-            case "RONUSD" : rate = 1/USDRON; break;
-            case "RONEUR" : rate = 1/USDRON * USDEUR; break;
-            case "RONGBP" : rate = 1/USDRON * USDGBP; break;
-            case "RONCAD" : rate = 1/USDRON * USDCAD; break;
-
-        }
-
-        toAmount = fromAmount * rate;
-
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backButton){
@@ -260,9 +183,8 @@ public class CurrencyConverterGUI extends  AppService implements ActionListener,
             new MainMenuGUI();
         } else if ( e.getSource() == convertButton) {
             try {
-                fromAmount = Double.parseDouble(fromTextField.getText());
-                update();
-                toTextField.setText(""+toAmount);
+
+                toTextField.setText(Double.toString(updateRate(fromCurrencyComboBox.getSelectedItem().toString() + toCurrencyComboBox.getSelectedItem().toString(),Double.parseDouble(fromTextField.getText()))));
                 messageLabel.setVisible(false);
 
             }catch (NumberFormatException ex) {

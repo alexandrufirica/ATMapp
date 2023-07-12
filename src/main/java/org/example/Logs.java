@@ -5,9 +5,9 @@ public class Logs {
     String date;
     String username;
     String transactionType;
-    int transcationAmount;
+    double transcationAmount;
     String transactionCurrency;
-    public String Logs(String date, String username, String transactionType, int transcationAmount, String transactionCurrency){
+    public String Logs(String date, String username, String transactionType, double transcationAmount, String transactionCurrency){
 
         this.date = date;
         this.username = username;

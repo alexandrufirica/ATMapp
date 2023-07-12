@@ -29,7 +29,7 @@ public class DepositGUI extends AppService implements ActionListener {
 
                 resultSet = pst.executeQuery();
                 if(resultSet.next()){
-                    ballance = resultSet.getInt(4);
+                    ballance = resultSet.getDouble(4);
                     currency = resultSet.getString(5);
                 }
 
@@ -153,14 +153,14 @@ public class DepositGUI extends AppService implements ActionListener {
 
 //This method modify ballance after withdrawal 
 
-        public void ballanceUpdate(String uname, int ballance){
+        public void ballanceUpdate(String uname, double ballance){
             String SQL = "UPDATE atmusers "
                     + "SET ballance = ? "
                     + "WHERE username = ?";
 
             try (PreparedStatement pstmt = con.prepareStatement(SQL))  {
 
-                pstmt.setInt(1,ballance);
+                pstmt.setDouble(1,ballance);
                 pstmt.setString(2,uname);
 
                 pstmt.executeUpdate();
