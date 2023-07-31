@@ -45,9 +45,8 @@
 
       <dependency>
           <groupId>org.example</groupId>
-          <artifactId>CurrencyApp</artifactId>
+          <artifactId>ATMApp</artifactId>
           <version>1.0-SNAPSHOT</version>
       </dependency>
-
   </dependencies>
 </project>

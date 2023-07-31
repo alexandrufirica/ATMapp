@@ -21,7 +21,7 @@ public class MainMenuGUI extends AppService implements ActionListener {
 
         //this gives currency ratios using currency app
         try {
-            Currency currencyApp = new Currency();
+           // Currency currencyApp = new Currency();
 
         }catch (Exception e ){
             System.out.println("Something wrong! Try again!" + e.getMessage());
